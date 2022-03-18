@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="/style.css">
+	<title>Code Projects</title>
+</head>
+<body>
+	<header class="topbar"><ul><li><a href="/">Home</a></li><li><a href="/genericlinux.org">Generic Linux</a></li></header>
+	<div id="cover">
+		<h1>Worfdolew</h1>
+	</div>
+	<div>
+		<pre><code>
+import readline, sys, random
+from colorama import Back, Style
+
+RED, GREEN, YELLOW, GRAY, RESET = Back.RED, Back.GREEN, Back.YELLOW, Style.DIM, Style.RESET_ALL
+
+print(f"{GREEN}Worfdolew - The Worfd Game\nEnter your guesses and see if they're correct. {RESET}\n\n")
+
+with open("wordlist.txt") as wordlist:
+    words = wordlist.read().strip().splitlines()
+word = random.choice(words)
+#word = "horse"
+won = False
+
+def handle_guess(guess):
+    global words
+    if word not in words:
+        return f"{RED}{guess}{RESET}", False
+    if guess == word:
+        return f"{GREEN}{guess}{RESET}", True
+    guess = list(guess[:5])
+    for i in range(len(guess)):
+        if guess[i] == word[i]:
+            guess[i] = f"{GREEN}{guess[i]}{RESET}"
+        elif guess[i] in word:
+            guess[i] = f"{YELLOW}{guess[i]}{RESET}"
+    return ' '.join(guess), False
+            
+
+for i in range(5):
+    guess = input("\r")
+    print(f"\033[F", end="")
+    x = handle_guess(guess)
+    sys.stdout.flush()
+    if x[0]: print(x[0])
+    if x[1]:
+        won = True
+        break
+
+if won:
+    print("\nYou won!")
+else:
+    print(f"You failed. The word was {word}.")
+</code></pre>
+	</div>
+<footer>Make a PR to this code on the website's GitHub repo to suggest changes.</footer>
+</body>
+</html>
