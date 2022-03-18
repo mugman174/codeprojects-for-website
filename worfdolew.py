@@ -1,7 +1,9 @@
 import readline, sys, random
 from colorama import Back, Style
-
+from spellchecker import SpellChecker # pyspellchecker
 RED, GREEN, YELLOW, GRAY, RESET = Back.RED, Back.GREEN, Back.YELLOW, Style.DIM, Style.RESET_ALL
+
+spell = SpellChecker()
 
 print(f"{GREEN}Worfdolew - The Worfd Game\nEnter your guesses and see if they're correct. {RESET}\n\n")
 
@@ -13,7 +15,7 @@ won = False
 def handle_guess(guess):
 	global words
 	already = []
-	if word not in words:
+	if spell.correction(guess) != guess:
 		return f"{RED}{guess}{RESET}", False
 	if guess == word:
 		return f"{GREEN}{guess}{RESET}", True
