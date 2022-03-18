@@ -5,6 +5,13 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="stylesheet" href="/style.css">
+	<script>
+fetch('/worfdolew.py')
+  .then(response => response.text())
+  .then((data) => {
+	document.getElementById('code').textContent = data
+  })
+	</script>
 	<title>Code Projects</title>
 </head>
 <body>
@@ -13,51 +20,11 @@
 		<h1>Worfdolew</h1>
 	</div>
 	<div>
-		<pre><code>
-import readline, sys, random
-from colorama import Back, Style
-
-RED, GREEN, YELLOW, GRAY, RESET = Back.RED, Back.GREEN, Back.YELLOW, Style.DIM, Style.RESET_ALL
-
-print(f"{GREEN}Worfdolew - The Worfd Game\nEnter your guesses and see if they're correct. {RESET}\n\n")
-
-with open("wordlist.txt") as wordlist:
-    words = wordlist.read().strip().splitlines()
-word = random.choice(words)
-#word = "horse"
-won = False
-
-def handle_guess(guess):
-    global words
-    if word not in words:
-        return f"{RED}{guess}{RESET}", False
-    if guess == word:
-        return f"{GREEN}{guess}{RESET}", True
-    guess = list(guess[:5])
-    for i in range(len(guess)):
-        if guess[i] == word[i]:
-            guess[i] = f"{GREEN}{guess[i]}{RESET}"
-        elif guess[i] in word:
-            guess[i] = f"{YELLOW}{guess[i]}{RESET}"
-    return ' '.join(guess), False
-            
-
-for i in range(5):
-    guess = input("\r")
-    print(f"\033[F", end="")
-    x = handle_guess(guess)
-    sys.stdout.flush()
-    if x[0]: print(x[0])
-    if x[1]:
-        won = True
-        break
-
-if won:
-    print("\nYou won!")
-else:
-    print(f"You failed. The word was {word}.")
+		<pre><code id="code">
+	Loading worfdolew.py...
+	(If you have a better solution to loading this program this way, make a PR pls)
 </code></pre>
 	</div>
-<footer>Make a PR to this code on the website's GitHub repo to suggest changes.</footer>
+<footer>Make a PR to this code on <a href="https://github.com/mugman174/codeprojects-for-website">this GitHub repo</a> to suggest changes.</footer>
 </body>
 </html>
