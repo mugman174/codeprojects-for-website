@@ -19,16 +19,18 @@ def handle_guess(guess):
     guess = list(guess[:5])
     for i in range(len(guess)):
         if guess[i] == word[i]:
-            guess[i] = f"{GREEN}{guess[i]}{RESET}"
+            guess[i] = f"{GREEN} {guess[i]} {RESET}"
         elif guess[i] in word:
-            guess[i] = f"{YELLOW}{guess[i]}{RESET}"
-    return ' '.join(guess), False
+            guess[i] = f"{YELLOW} {guess[i]} {RESET}"
+        else:
+            guess[i] = f"{GRAY} {guess[i]} {RESET}"
+    return ''.join(guess), False
 
 for i in range(5):
     guess = input("\r")
+    sys.stdout.flush()
     print(f"\033[F", end="")
     x = handle_guess(guess)
-    sys.stdout.flush()
     if x[0]: print(x[0])
     if x[1]:
         won = True
