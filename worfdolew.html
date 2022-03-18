@@ -12,6 +12,9 @@ fetch('worfdolew.py')
 	document.getElementById('code').textContent = data
   })
 	</script>
+	<script>
+	if(document.cookie === 'clicked=true') {document.getElementById("announce").parentNode.removeChild(document.getElementById("announce"))}
+	</script>
 	<title>Code Projects</title>
 </head>
 <body>
